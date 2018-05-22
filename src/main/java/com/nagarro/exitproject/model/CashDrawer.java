@@ -3,6 +3,7 @@ package com.nagarro.exitproject.model;
 import java.util.Date;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -18,6 +19,7 @@ public class CashDrawer {
 	private Date date;
 	private double startBalance;
 	private double endBalance;
+	
 	
 	@OneToOne(mappedBy="cashDrawer")
 	private Employee employee;
