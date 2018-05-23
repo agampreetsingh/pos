@@ -27,7 +27,7 @@ public class Employee {
 	private String name;
 	private String password;
 
-	@JsonIgnore
+	//@JsonIgnore
 	@OneToOne
 	private CashDrawer cashDrawer;
 

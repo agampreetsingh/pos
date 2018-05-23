@@ -15,6 +15,8 @@ import javax.persistence.Table;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "customer")
 public class Customer {
@@ -25,7 +27,8 @@ public class Customer {
 	private String email;
 	private String mobile;
 			
-	@OneToMany(mappedBy="customer")
+	@JsonIgnore
+	@OneToMany(mappedBy="customer", fetch=FetchType.LAZY)
 	private List<Order> order = new ArrayList<Order>();
 
 	public int getId() {

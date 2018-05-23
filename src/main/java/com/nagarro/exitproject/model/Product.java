@@ -15,6 +15,8 @@ import javax.persistence.Table;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "product")
 public class Product {
@@ -27,9 +29,11 @@ public class Product {
 	private int stock;
 	private double price;
 	
+	@JsonIgnore
 	@OneToMany(mappedBy="product")
 	private List<OrderProductEntries> orderProductEntries = new ArrayList<OrderProductEntries>();
     
+	@JsonIgnore
 	@OneToMany(mappedBy="product")
 	private List<CartProductEntries> cartProductEntries = new ArrayList<CartProductEntries>();
 

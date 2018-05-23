@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.nagarro.exitproject.dto.EmployeeDto;
 import com.nagarro.exitproject.model.Employee;
 import com.nagarro.exitproject.model.Order;
 import com.nagarro.exitproject.service.EmployeeService;
@@ -31,13 +32,15 @@ public class EmployeeController {
         System.out.println("INSIDE THE LOGIN CONTROLLER");
 		Employee emp = this.employeeService.authenticate(employee);
 		if(emp != null){
-			System.out.println("Got the employee" + emp.getCashDrawer().getStartBalance());
-			List<Order> list = emp.getOrder();
-			System.out.println(list);
+			EmployeeDto empDto = new EmployeeDto();
+			empDto.setId(emp.getId());
+			empDto.setName(emp.getName());
+			empDto.setCashDrawerId(emp.getCashDrawer().getId());
+			return ResponseEntity.ok().body(empDto);
 		}else {
 			System.out.println("Not Valid employee");
+			return ResponseEntity.ok().body("NOT VALID EMPLOYEE");
 		}
-		return ResponseEntity.ok().body(emp);
 	}
 	
 

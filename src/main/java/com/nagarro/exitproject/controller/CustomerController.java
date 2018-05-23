@@ -21,14 +21,18 @@ public class CustomerController {
 	@Autowired
 	private CustomerService customerService;
 	
-	@RequestMapping(value="/all", method=RequestMethod.GET)
+	@RequestMapping(value="", method=RequestMethod.GET)
 	@ResponseBody	
 	public ResponseEntity<?> searchCustomer(HttpServletRequest request, HttpServletResponse response,
 			@RequestParam(value = "search", required = true) String searchKey) {
 		System.out.println("Get Customers Controller");	
-		CustomerListDto list = new CustomerListDto();
-		list.setCustomers(this.customerService.getCustomers(searchKey));
+		
+		CustomerListDto cusList = new CustomerListDto();
+		cusList.setCustomers(this.customerService.getCustomers(searchKey));
+		//this.customerService.getCustomers(searchKey);
+		//return ResponseEntity.ok().body(list);
+		
 		System.out.println("Leaving the controller.");
-		return ResponseEntity.ok().body(list);		
+		return ResponseEntity.ok().body(cusList);
 	}
 }
