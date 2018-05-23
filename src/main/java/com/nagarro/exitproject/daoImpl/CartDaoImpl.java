@@ -16,8 +16,10 @@ public class CartDaoImpl {
 
 	@Autowired
 	private SessionFactory sessionFactory;
+	
+	
 
-	public void deleteFromCart(int pid, int cid) {
+	public boolean deleteFromCart(int pid, int cid) {
 		Session session = this.sessionFactory.getCurrentSession();
 		try {
 			Query custQuery = session.createQuery("from Customer where id=:id")
@@ -31,16 +33,19 @@ public class CartDaoImpl {
 			Product product = (Product) session
 					.createQuery("from Product where id=:id")
 					.setParameter("id", pid).uniqueResult();
-			session.close();
-			
-			Session s = this.sessionFactory.getCurrentSession();
-			CartProductEntries cpentry = new CartProductEntries();
-			cpentry.setProduct(product);
-			cpentry.setCart(cart);
-			s.delete(cpentry);			
+						
+			CartProductEntries cpentry = (CartProductEntries) session.
+					createQuery("from CartProductEntries where product=:prod and cart=:cart")
+					.setParameter("prod", product)
+					.setParameter("cart", cart)
+					.uniqueResult();
+						
+			session.delete(cpentry);
+			return true;
 		
 		} catch (Exception e) {
 			System.out.println("Error Deleting From the Cart: " + e);
+			return false;
 		}
 	}
 

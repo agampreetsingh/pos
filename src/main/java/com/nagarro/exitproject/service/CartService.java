@@ -20,9 +20,9 @@ public class CartService {
 	}
 	
 	@Transactional
-	public void deleteFromCart(String pid, String cid) {
+	public boolean deleteFromCart(String pid, String cid) {
 		System.out.println("Cart Deleter service.");
-		this.cartDao.deleteFromCart(Integer.parseInt(pid), Integer.parseInt(cid));
+		return this.cartDao.deleteFromCart(Integer.parseInt(pid), Integer.parseInt(cid));
 	}
 	
 	

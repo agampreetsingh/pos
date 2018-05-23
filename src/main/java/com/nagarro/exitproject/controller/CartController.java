@@ -36,8 +36,10 @@ public class CartController {
 	public ResponseEntity<?> removeProductFromCart(HttpServletRequest request, HttpServletResponse response,
 			@RequestParam("prodId") String pid, @RequestParam("custId") String cid) {
 		System.out.println("Delete cart controller.");
-		this.cartService.deleteFromCart(pid, cid);
-		return null;
+		if(this.cartService.deleteFromCart(pid, cid)){
+			return ResponseEntity.ok().body("DELETED THE PRODUCT FROM THE CART.");
+		}
+		return ResponseEntity.ok().body("CANNOT DELETE THE PRODUCT FROM THE CART.");
 	}
 	
 	
