@@ -20,6 +20,15 @@ public class CartController {
 	@Autowired
 	private CartService cartService;
 	
+	@RequestMapping(value="getCart", method=RequestMethod.GET)
+	@ResponseBody	
+	public ResponseEntity<?> getProducts(HttpServletRequest request, HttpServletResponse response,
+			@RequestParam("custId") String cid) {
+		System.out.println("Get Cart");
+		
+		return ResponseEntity.ok().body(this.cartService.getCart(cid));
+	}
+	
 	@RequestMapping(value="addProduct", method=RequestMethod.POST)
 	@ResponseBody	
 	public ResponseEntity<?> addProductToCart(HttpServletRequest request, HttpServletResponse response,
@@ -40,6 +49,28 @@ public class CartController {
 			return ResponseEntity.ok().body("DELETED THE PRODUCT FROM THE CART.");
 		}
 		return ResponseEntity.ok().body("CANNOT DELETE THE PRODUCT FROM THE CART.");
+	}
+	
+	@RequestMapping(value="inc", method=RequestMethod.PUT)
+	@ResponseBody	
+	public ResponseEntity<?> increaseQuantity(HttpServletRequest request, HttpServletResponse response,
+			@RequestParam("prodId") String pid, @RequestParam("custId") String cid) {
+		System.out.println("Increase quantity controller.");
+		if(this.cartService.increaseQuantity(pid, cid)){
+			return ResponseEntity.ok().body("Quantity of the product incremented.");
+		}
+		return ResponseEntity.ok().body("Failed to increment the quantity.");
+	}
+	
+	@RequestMapping(value="dec", method=RequestMethod.PUT)
+	@ResponseBody	
+	public ResponseEntity<?> decreaseQuantity(HttpServletRequest request, HttpServletResponse response,
+			@RequestParam("prodId") String pid, @RequestParam("custId") String cid) {
+		System.out.println("Decrease quantity controller.");
+		if(this.cartService.decreaseQuantity(pid, cid)){
+			return ResponseEntity.ok().body("Quantity of the product decremented.");
+		}
+		return ResponseEntity.ok().body("Failed to decrement the quantity.");
 	}
 	
 	

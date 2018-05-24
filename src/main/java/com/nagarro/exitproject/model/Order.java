@@ -1,21 +1,21 @@
 package com.nagarro.exitproject.model;
 
-import java.util.ArrayList;
 import java.util.Date;
+import java.util.ArrayList;
 import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
-import org.hibernate.annotations.LazyCollection;
-import org.hibernate.annotations.LazyCollectionOption;
+import org.hibernate.annotations.CreationTimestamp;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "order")
@@ -26,20 +26,32 @@ public class Order {
 	private Date date;
 	private double amount;
 	private String paymentType;
+//	private String status;
 	
 //	@ManyToMany(mappedBy="order")
 //	private Set<Product> product = new HashSet<Product>();
 //	
-	@OneToMany(mappedBy="order")
+	@JsonIgnore
+	@OneToMany(mappedBy="order", fetch=FetchType.EAGER)
 	private List<OrderProductEntries> productEntries = new ArrayList<OrderProductEntries>();
 	
 	
-	
-	@ManyToOne
+	@JsonIgnore
+	@OneToOne
 	private Employee employee;
-	
-	@ManyToOne
+	@JsonIgnore
+	@OneToOne
 	private Customer customer;
+	
+	
+
+//	public String getStatus() {
+//		return status;
+//	}
+//
+//	public void setStatus(String status) {
+//		this.status = status;
+//	}
 
 	public int getId() {
 		return id;
@@ -48,6 +60,10 @@ public class Order {
 	public void setId(int id) {
 		this.id = id;
 	}
+
+	
+
+	
 
 	public Date getDate() {
 		return date;
