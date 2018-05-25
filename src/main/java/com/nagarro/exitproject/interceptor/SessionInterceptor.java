@@ -17,7 +17,7 @@ public class SessionInterceptor extends HandlerInterceptorAdapter{
         if(!request.getRequestURI().contains("employee/login")) {
         	Employee emp = ((Employee)request.getSession().getAttribute(Constants.SESSION_USER));
         	if(emp == null) {
-                response.sendError(401, "EMPLOYEE NOT LOGGED IN");
+                response.sendError(400, "EMPLOYEE NOT LOGGED IN");
         		return false;
         	}
         }

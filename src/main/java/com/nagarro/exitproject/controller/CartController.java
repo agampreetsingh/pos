@@ -36,7 +36,7 @@ public class CartController {
 		if(this.cartService.addProductToCart(pid, cid)){
 			return ResponseEntity.status(HttpStatus.OK).body(Constants.ADD_PRODUCT_MESSAGE);
 		}	
-		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("FAILED TO ADD THE PRODUCT.");
+		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(Constants.FAIL_PRODUCT_MESSAGE);
 	}
 	
 	@RequestMapping(value="delete/{pid}/{cid}", method=RequestMethod.DELETE)
@@ -46,18 +46,17 @@ public class CartController {
 		if(this.cartService.deleteFromCart(pid, cid)){
 			return ResponseEntity.status(HttpStatus.OK).body(Constants.DELETE_PRODUCT_MESSAGE);
 		}
-		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("CANNOT DELETE THE PRODUCT FROM THE CART.");
+		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(Constants.FAIL_DELETE_PRODUCT_MESSAGE);
 	}
 	
 	@RequestMapping(value="inc/{pid}/{cid}", method=RequestMethod.PUT)
 	@ResponseBody	
 	public ResponseEntity<?> increaseQuantity(HttpServletRequest request, HttpServletResponse response,
 			@PathVariable("pid") String pid, @PathVariable("cid") String cid) {
-		System.out.println("Increase quantity controller.");
 		if(this.cartService.increaseQuantity(pid, cid)){
 			return ResponseEntity.status(HttpStatus.OK).body(Constants.QUANTITY_INC_MESSAGE);
 		}
-		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Failed to increment the quantity.");
+		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(Constants.FAIL_QUANTITY_INC_MESSAGE);
 	}
 	
 	@RequestMapping(value="dec/{pid}/{cid}", method=RequestMethod.PUT)
@@ -68,7 +67,7 @@ public class CartController {
 		if(this.cartService.decreaseQuantity(pid, cid)){
 			return ResponseEntity.status(HttpStatus.OK).body(Constants.QUANTITY_DEC_MESSAGE);
 		}
-		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Failed to decrement the quantity.");
+		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(Constants.FAIL_QUANTITY_DEC_MESSAGE);
 	}
 	
 	

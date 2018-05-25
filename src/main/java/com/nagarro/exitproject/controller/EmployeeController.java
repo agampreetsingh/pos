@@ -44,7 +44,6 @@ public class EmployeeController {
 			session.putValue(Constants.SESSION_USER, emp);
 			return ResponseEntity.status(HttpStatus.OK).body(empDto);
 		}else {
-			System.out.println("Not Valid employee");
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("NOT VALID EMPLOYEE");
 		}
 	}

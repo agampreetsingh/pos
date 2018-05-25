@@ -21,12 +21,12 @@
       <url-pattern>/</url-pattern>
    </servlet-mapping>   
   <display-name>Archetype Created Web Application</display-name>
-  <filter>
+  <!--  <filter>
 		<filter-name>CORS</filter-name>
 		<filter-class>com.nagarro.exitproject.filter.CORSFilter</filter-class>
 	</filter>
 	<filter-mapping>
 	        <filter-name>CORS</filter-name>
 	        <url-pattern>/*</url-pattern>
-	</filter-mapping>	
+	</filter-mapping>	 --> 
 </web-app>
