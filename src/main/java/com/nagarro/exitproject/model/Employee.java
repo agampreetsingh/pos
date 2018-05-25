@@ -1,6 +1,7 @@
 package com.nagarro.exitproject.model;
 
 import java.util.ArrayList;
+
 import java.util.List;
 
 import javax.persistence.Entity;
@@ -9,7 +10,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 
@@ -26,8 +26,9 @@ public class Employee {
 	private String password;
 
 	@JsonIgnore
-	@OneToOne(fetch=FetchType.EAGER)
-	private CashDrawer cashDrawer;
+	//@OneToOne(fetch=FetchType.EAGER)
+	@OneToMany(mappedBy="employee", fetch=FetchType.LAZY)
+	private List<CashDrawer> cashDrawer;
 
 	@JsonIgnore
 	@OneToMany(mappedBy="employee", fetch=FetchType.LAZY)
@@ -57,11 +58,13 @@ public class Employee {
 		this.password = password;
 	}
 
-	public CashDrawer getCashDrawer() {
+	
+
+	public List<CashDrawer> getCashDrawer() {
 		return cashDrawer;
 	}
 
-	public void setCashDrawer(CashDrawer cashDrawer) {
+	public void setCashDrawer(List<CashDrawer> cashDrawer) {
 		this.cashDrawer = cashDrawer;
 	}
 

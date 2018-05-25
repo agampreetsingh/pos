@@ -18,7 +18,6 @@ public class CustomerService {
 	
 	@Transactional
 	public List<Customer> getCustomers(String searchKey) {
-		System.out.println("Get Customer Service.");
 		return this.customerDao.getCustomers(searchKey);
 	}
 

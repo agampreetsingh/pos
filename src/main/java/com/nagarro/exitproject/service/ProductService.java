@@ -19,13 +19,11 @@ public class ProductService {
 	
 	@Transactional
 	public List<Product> getProducts() {
-		System.out.println("Product service.");
 		return this.productDao.getProducts();
 	}
 
 	@Transactional
 	public List<Product>  searchProductBy(String key) {
-
 		return this.productDao.searchProductBy(key);
 	}
 	

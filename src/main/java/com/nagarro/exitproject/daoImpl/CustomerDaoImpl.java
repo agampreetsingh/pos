@@ -8,10 +8,11 @@ import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.nagarro.exitproject.dao.ICustomerDao;
 import com.nagarro.exitproject.model.Customer;
 
 @Repository
-public class CustomerDaoImpl {
+public class CustomerDaoImpl implements ICustomerDao{
 
 	@Autowired
 	private SessionFactory sessionFactory;

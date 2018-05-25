@@ -3,6 +3,7 @@ package com.nagarro.exitproject.model;
 import java.sql.Date;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -22,7 +23,8 @@ public class CashDrawer {
 	private double endBalance;
 	
 	@JsonIgnore
-	@OneToOne(mappedBy="cashDrawer")
+	//@OneToOne(mappedBy="cashDrawer")
+	@OneToOne(fetch=FetchType.LAZY)
 	private Employee employee;
 
 	public int getId() {

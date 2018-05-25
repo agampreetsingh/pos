@@ -3,7 +3,7 @@ package com.nagarro.exitproject.dto;
 public class EmployeeDto {
 	private int id;
 	private String name;
-	private int cashDrawerId;
+	
 	public int getId() {
 		return id;
 	}
@@ -16,12 +16,7 @@ public class EmployeeDto {
 	public void setName(String name) {
 		this.name = name;
 	}
-	public int getCashDrawerId() {
-		return cashDrawerId;
-	}
-	public void setCashDrawerId(int cashDrawerId) {
-		this.cashDrawerId = cashDrawerId;
-	}
+
 	
 
 }

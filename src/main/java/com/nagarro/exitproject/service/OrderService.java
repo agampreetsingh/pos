@@ -22,9 +22,7 @@ public class OrderService {
 
 	@Transactional
 	public boolean saveOrder(String pType, String status, String cid, int eid) {
-		System.out.println("Inside the save order service.");
 		if(this.orderDao.saveOrder(pType, status, Integer.parseInt(cid), eid)){
-			System.out.println("Order added.");
 			this.cartDao.deleteCart(Integer.parseInt(cid));
 			return true;
 		}

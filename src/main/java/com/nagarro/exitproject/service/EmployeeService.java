@@ -16,7 +16,6 @@ public class EmployeeService {
 
 	@Transactional
 	public Employee authenticate(Employee employee) {
-		System.out.println("Login Service.");
 		return this.employeeDao.authenticate(employee.getName(), employee.getPassword());		
 	}
 

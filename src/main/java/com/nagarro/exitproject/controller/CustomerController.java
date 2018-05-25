@@ -11,11 +11,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.nagarro.exitproject.constant.Constants;
 import com.nagarro.exitproject.dto.CustomerListDto;
 import com.nagarro.exitproject.service.CustomerService;
 
 @RestController
-@RequestMapping(value="/customers")
+@RequestMapping(value=Constants.CUSTOMER_URL)
 public class CustomerController {
 	
 	@Autowired
@@ -25,14 +26,8 @@ public class CustomerController {
 	@ResponseBody	
 	public ResponseEntity<?> searchCustomer(HttpServletRequest request, HttpServletResponse response,
 			@RequestParam(value = "search", required = true) String searchKey) {
-		System.out.println("Get Customers Controller");	
-		
 		CustomerListDto cusList = new CustomerListDto();
 		cusList.setCustomers(this.customerService.getCustomers(searchKey));
-		//this.customerService.getCustomers(searchKey);
-		//return ResponseEntity.ok().body(list);
-		
-		System.out.println("Leaving the controller.");
 		return ResponseEntity.ok().body(cusList);
 	}
 }

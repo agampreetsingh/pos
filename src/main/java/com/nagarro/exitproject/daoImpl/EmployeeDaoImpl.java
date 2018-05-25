@@ -9,17 +9,16 @@ import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.nagarro.exitproject.dao.EmployeeDao;
+import com.nagarro.exitproject.dao.IEmployeeDao;
 import com.nagarro.exitproject.model.Employee;
 
 @Repository
-public class EmployeeDaoImpl implements EmployeeDao{
+public class EmployeeDaoImpl implements IEmployeeDao{
 
 	@Autowired
 	private SessionFactory sessionFactory;
 	
 	public Employee authenticate(String name, String password) {
-		System.out.println("Login Dao");
         Session session = this.sessionFactory.getCurrentSession();
         Employee emp = null;
         try {
@@ -27,7 +26,6 @@ public class EmployeeDaoImpl implements EmployeeDao{
         			                     .setParameter("username", name)
         			                     .setParameter("pass", password);
         	emp = (Employee)query.uniqueResult(); 
-        	System.out.println(emp.getName());
         } catch (Exception e) {
         	System.out.println("Authentication Error: " + e);
         }        

@@ -8,10 +8,11 @@ import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.nagarro.exitproject.dao.IProductDao;
 import com.nagarro.exitproject.model.Product;
 
 @Repository
-public class ProductDaoImpl {
+public class ProductDaoImpl implements IProductDao{
 
 	@Autowired
 	private SessionFactory sessionFactory;

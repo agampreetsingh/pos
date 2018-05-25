@@ -5,6 +5,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
+import com.nagarro.exitproject.constant.Constants;
 import com.nagarro.exitproject.model.Employee;
 
 public class SessionInterceptor extends HandlerInterceptorAdapter{
@@ -13,11 +14,9 @@ public class SessionInterceptor extends HandlerInterceptorAdapter{
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) 
 	throws Exception
 	{
-		// Any request other than login must be checked.
         if(!request.getRequestURI().contains("employee/login")) {
-        	Employee emp = ((Employee)request.getSession().getAttribute("employee"));
+        	Employee emp = ((Employee)request.getSession().getAttribute(Constants.SESSION_USER));
         	if(emp == null) {
-        		System.out.println("NOT Authorized.");
                 response.sendError(401, "EMPLOYEE NOT LOGGED IN");
         		return false;
         	}

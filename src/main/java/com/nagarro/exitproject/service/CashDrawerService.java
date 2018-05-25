@@ -2,6 +2,8 @@ package com.nagarro.exitproject.service;
 
 
 
+import java.sql.Date;
+
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,24 +19,21 @@ public class CashDrawerService {
 	private CashDrawerDaoImpl cashDrawerDao;
 
 	@Transactional
-	public CashDrawer getDrawer(int eid) {
-		CashDrawer cd =  this.cashDrawerDao.getDrawer(eid);
-//		Date date = new Date();
-//		if(date.compareTo(cd.getDate()) == 1) {  
-//			
-//		}
+	public CashDrawer getDrawer(String id) {
+		CashDrawer cd =  this.cashDrawerDao.getDrawer(Integer.parseInt(id),
+				new Date(System.currentTimeMillis()));
 		return cd;
 		
-	}
-	
+	}	
+
 	@Transactional
-	public CashDrawer setStartBalance(int balance, int id) {
-		return this.cashDrawerDao.setStartBalance(balance, id);
+	public boolean createNewEntry(String eid, String cash) {
+        return this.cashDrawerDao.createNewEntry(Integer.parseInt(eid), Integer.parseInt(cash));
 	}
-	
+
 	@Transactional
-	public int setEndBalance(int balance, int id) {
-		return this.cashDrawerDao.setEndBalance(balance, id);
+	public boolean updateCash(String eid, String cash) {
+		return this.cashDrawerDao.updateCash(Integer.parseInt(eid), Integer.parseInt(cash));
 	}
 
 }

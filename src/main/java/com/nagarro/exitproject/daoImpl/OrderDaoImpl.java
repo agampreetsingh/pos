@@ -9,6 +9,7 @@ import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.nagarro.exitproject.dao.IOrderDao;
 import com.nagarro.exitproject.dto.OrderDetailDto;
 import com.nagarro.exitproject.model.Cart;
 import com.nagarro.exitproject.model.CartProductEntries;
@@ -19,7 +20,7 @@ import com.nagarro.exitproject.model.OrderProductEntries;
 import com.nagarro.exitproject.model.Product;
 
 @Repository
-public class OrderDaoImpl {
+public class OrderDaoImpl implements IOrderDao{
 
 	@Autowired
 	private SessionFactory sessionFactory;

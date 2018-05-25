@@ -8,19 +8,19 @@ import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.nagarro.exitproject.dao.ICartDao;
 import com.nagarro.exitproject.model.Cart;
 import com.nagarro.exitproject.model.CartProductEntries;
 import com.nagarro.exitproject.model.Customer;
 import com.nagarro.exitproject.model.Product;
 
 @Repository
-public class CartDaoImpl {
+public class CartDaoImpl implements ICartDao{
 
 	@Autowired
 	private SessionFactory sessionFactory;
 
 	public List<CartProductEntries> getCart(int cid) {
-		System.out.println("GEt cart dao.");
 		Session session = this.sessionFactory.getCurrentSession();
 		try {
 			Query custQuery = session.createQuery("from Customer where id=:id")
@@ -45,14 +45,12 @@ public class CartDaoImpl {
 	}
 
 	public boolean decreaseQuantity(int pid, int cid) {
-		System.out.println("Decreasing the quantity.");
 		Session session = this.sessionFactory.getCurrentSession();
 		try {
 			Query custQuery = session.createQuery("from Customer where id=:id")
 					.setParameter("id", cid);
 			Customer customer = (Customer) custQuery.uniqueResult();
 
-			// Get the cartId
 			Cart cart = (Cart) session
 					.createQuery("from Cart where customer=:cust")
 					.setParameter("cust", customer).uniqueResult();
@@ -79,14 +77,12 @@ public class CartDaoImpl {
 	}
 
 	public boolean increaseQuantity(int pid, int cid) {
-		System.out.println("Increasing the quantity dao.");
 		Session session = this.sessionFactory.getCurrentSession();
 		try {
 			Query custQuery = session.createQuery("from Customer where id=:id")
 					.setParameter("id", cid);
 			Customer customer = (Customer) custQuery.uniqueResult();
 
-			// Get the cartId
 			Cart cart = (Cart) session
 					.createQuery("from Cart where customer=:cust")
 					.setParameter("cust", customer).uniqueResult();
@@ -115,7 +111,6 @@ public class CartDaoImpl {
 	}
     
 	public void deleteCart(int cid) {
-		System.out.println("Inside the delete cart.");
 		Session session = this.sessionFactory.getCurrentSession();
 		try {
 			Query custQuery = session.createQuery("from Customer where id=:id")

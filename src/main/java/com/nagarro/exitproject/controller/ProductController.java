@@ -4,6 +4,7 @@ import java.util.List;
 
 
 
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -16,12 +17,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.nagarro.exitproject.constant.Constants;
 import com.nagarro.exitproject.dto.ProductListDto;
 import com.nagarro.exitproject.model.Product;
 import com.nagarro.exitproject.service.ProductService;
 
 @RestController
-@RequestMapping(value="/products")
+@RequestMapping(value=Constants.PRODUCT_URL)
 public class ProductController {
 	
 	@Autowired
