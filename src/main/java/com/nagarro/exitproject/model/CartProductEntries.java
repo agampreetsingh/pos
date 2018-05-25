@@ -7,6 +7,8 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name="cartproductentries")
 public class CartProductEntries {
@@ -17,6 +19,7 @@ public class CartProductEntries {
 	@ManyToOne
 	private Product product;
 	
+	@JsonIgnore
 	@ManyToOne
 	private Cart cart;
 	

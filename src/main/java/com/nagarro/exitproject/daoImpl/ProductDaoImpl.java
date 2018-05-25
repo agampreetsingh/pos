@@ -29,4 +29,19 @@ public class ProductDaoImpl {
 		}
 		return list;
 	}
+
+	@SuppressWarnings("unchecked")
+	public List<Product>  searchProductBy(String key) {
+		Session session = this.sessionFactory.getCurrentSession();
+		List<Product> list = null;
+		try {
+			Query query = session.createQuery("from Product where name like :key or description like :key or code like :key")
+					             .setParameter("key", "%"+key+"%");
+			list = query.list();
+			return list;
+		} catch (Exception e) {
+			System.out.println("Error fetching products by search Key: " + e);
+			return null;
+		}
+	}
 }

@@ -2,6 +2,7 @@ package com.nagarro.exitproject.controller;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -28,18 +29,23 @@ public class EmployeeController {
 	@Autowired
 	private CashDrawerService cashDrawerService;
 	
+	@SuppressWarnings("deprecation")
 	@RequestMapping(value="/login", method=RequestMethod.POST)
 	@ResponseBody	
 	public ResponseEntity<?> employeeLogin(HttpServletRequest request, HttpServletResponse response,
 			                              @RequestBody Employee employee, 
-			                              @RequestParam("balance") String balance) {
+			                              @RequestParam("balance") String balance,
+			                              HttpSession session
+			                              ) {
         System.out.println("INSIDE THE LOGIN CONTROLLER");
+        System.out.println(employee.getName() + ": " + employee.getPassword());
 		Employee emp = this.employeeService.authenticate(employee);
-		if(emp != null){
+		if(emp != null){  // Authenticated.
 			EmployeeDto empDto = new EmployeeDto();
 			empDto.setId(emp.getId());
 			empDto.setName(emp.getName());
 			empDto.setCashDrawerId(emp.getCashDrawer().getId());
+			session.putValue("employee", emp);
 			this.cashDrawerService.setStartBalance(Integer.parseInt(balance), emp.getCashDrawer().getId());
 			return ResponseEntity.status(HttpStatus.OK).body(empDto);
 		}else {
@@ -47,6 +53,14 @@ public class EmployeeController {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("NOT VALID EMPLOYEE");
 		}
 	}
+	
+	@RequestMapping(value="nosession", method=RequestMethod.GET)
+	@ResponseBody
+	public ResponseEntity<?> employeeLogin(HttpServletRequest request, HttpServletResponse response) {
+	    return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("EMPLOYEE NOT LOGGED IN.");	
+	}
+	
+	
 	
 
 }  // End of class.

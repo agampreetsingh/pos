@@ -26,7 +26,8 @@ public class EmployeeDaoImpl implements EmployeeDao{
         	Query query = session.createQuery("from Employee where name=:username and password=:pass")
         			                     .setParameter("username", name)
         			                     .setParameter("pass", password);
-        	emp = (Employee)query.uniqueResult();        	
+        	emp = (Employee)query.uniqueResult(); 
+        	System.out.println(emp.getName());
         } catch (Exception e) {
         	System.out.println("Authentication Error: " + e);
         }        

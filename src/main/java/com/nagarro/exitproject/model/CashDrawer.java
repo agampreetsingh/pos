@@ -1,14 +1,15 @@
 package com.nagarro.exitproject.model;
 
-import java.util.Date;
+import java.sql.Date;
 
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "cashdrawer")
@@ -20,7 +21,7 @@ public class CashDrawer {
 	private double startBalance;
 	private double endBalance;
 	
-	
+	@JsonIgnore
 	@OneToOne(mappedBy="cashDrawer")
 	private Employee employee;
 

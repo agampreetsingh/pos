@@ -12,9 +12,9 @@ public class App {
 		                        .addAnnotatedClass(CashDrawer.class)
 		                        .addAnnotatedClass(Cart.class)
 		                        .addAnnotatedClass(CartProductEntries.class)
-		                        .addAnnotatedClass(Order.class)
 		                        .addAnnotatedClass(Customer.class)
 		                        .addAnnotatedClass(Product.class)
+		                        .addAnnotatedClass(Order.class)
 		                        .addAnnotatedClass(OrderProductEntries.class);
 	    @SuppressWarnings("deprecation")
 		SessionFactory sf = con.buildSessionFactory();

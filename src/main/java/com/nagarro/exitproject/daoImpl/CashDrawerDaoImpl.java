@@ -1,6 +1,6 @@
 package com.nagarro.exitproject.daoImpl;
 
-import java.util.Date;
+import java.sql.Date;
 
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -26,7 +26,7 @@ public class CashDrawerDaoImpl {
 							"from CashDrawer where id=:id")
 					.setParameter("id", id);
 		    CashDrawer cd = (CashDrawer)query.uniqueResult();
-		    cd.setDate(new Date());
+		    //cd.setDate(new Date(System.currentTimeMillis()));
 		    cd.setEndBalance(cd.getEndBalance() + balance);
 		    return (int)cd.getEndBalance();
 		} catch(Exception e) {
@@ -44,7 +44,7 @@ public class CashDrawerDaoImpl {
 							"from CashDrawer where id=:id")
 					.setParameter("id", id);
 		    CashDrawer cd = (CashDrawer)query.uniqueResult();
-		    cd.setDate(new Date());
+		    cd.setDate(new Date(System.currentTimeMillis()));
 		    cd.setStartBalance(balance);
 		    return cd;
 		} catch (Exception e) {
@@ -63,9 +63,8 @@ public class CashDrawerDaoImpl {
 			Employee emp = (Employee) query.uniqueResult();
 			int drawerId = emp.getCashDrawer().getId();
 			
-			Query cashQuery = session.createQuery("from CashDrawer where id=:id and date=:d")
-					                 .setParameter("id", drawerId)
-			                         .setParameter("d", new Date());
+			Query cashQuery = session.createQuery("from CashDrawer where id=:id")
+					                 .setParameter("id", drawerId);			                        
 			CashDrawer cd = (CashDrawer)cashQuery.uniqueResult();
 			if(cd == null) {
                 System.out.println("No cash drawer");				
