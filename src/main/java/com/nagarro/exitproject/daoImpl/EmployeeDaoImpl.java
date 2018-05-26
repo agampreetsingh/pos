@@ -1,6 +1,7 @@
 package com.nagarro.exitproject.daoImpl;
 
 
+import org.apache.log4j.Logger;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -17,6 +18,7 @@ public class EmployeeDaoImpl implements IEmployeeDao{
 
 	@Autowired
 	private SessionFactory sessionFactory;
+	Logger logger = Logger.getLogger(EmployeeDaoImpl.class);
 	
 	public Employee authenticate(String name, String password) {
         Session session = this.sessionFactory.getCurrentSession();
@@ -27,7 +29,7 @@ public class EmployeeDaoImpl implements IEmployeeDao{
         			                     .setParameter("pass", password);
         	emp = (Employee)query.uniqueResult(); 
         } catch (Exception e) {
-        	System.out.println("Authentication Error: " + e);
+          logger.error(e);
         }        
 		return emp;		
 	}

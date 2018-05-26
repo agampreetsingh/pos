@@ -24,25 +24,27 @@ public class CartService {
 	
 	@Transactional
 	public boolean deleteFromCart(String pid, String cid) {
-		System.out.println("Cart Deleter service.");
 		return this.cartDao.deleteFromCart(Integer.parseInt(pid), Integer.parseInt(cid));
 	}
 	
 	@Transactional
 	public boolean increaseQuantity(String pid, String cid) {
-		System.out.println("Increasing the quantity");
 		return this.cartDao.increaseQuantity(Integer.parseInt(pid), Integer.parseInt(cid));
 	}
 
 	@Transactional
 	public boolean decreaseQuantity(String pid, String cid) {
-		System.out.println("Decreasing the quantity.");
 		return this.cartDao.decreaseQuantity(Integer.parseInt(pid), Integer.parseInt(cid));
 	}
 
 	@Transactional
 	public List<CartProductEntries> getCart(String cid) {
 		return this.cartDao.getCart(Integer.parseInt(cid));		
+	}
+
+	@Transactional
+	public boolean deleteCart(String cid) {
+		return this.cartDao.deleteCart(Integer.parseInt(cid));
 	}	
 	
 }

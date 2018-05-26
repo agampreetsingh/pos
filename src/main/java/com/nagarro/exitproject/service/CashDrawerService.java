@@ -27,13 +27,13 @@ public class CashDrawerService {
 	}	
 
 	@Transactional
-	public boolean createNewEntry(String eid, String cash) {
-        return this.cashDrawerDao.createNewEntry(Integer.parseInt(eid), Integer.parseInt(cash));
+	public boolean createNewEntry(String eid, int cash) {
+        return this.cashDrawerDao.createNewEntry(Integer.parseInt(eid), cash);
 	}
 
 	@Transactional
-	public boolean updateCash(String eid, String cash) {
-		return this.cashDrawerDao.updateCash(Integer.parseInt(eid), Integer.parseInt(cash));
+	public boolean updateCash(String eid, int cash) {
+		return this.cashDrawerDao.updateCash(Integer.parseInt(eid), cash);
 	}
 
 }

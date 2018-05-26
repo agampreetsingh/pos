@@ -2,6 +2,8 @@ package com.nagarro.exitproject.daoImpl;
 
 import java.util.List;
 
+
+import org.apache.log4j.Logger;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -19,6 +21,7 @@ public class CartDaoImpl implements ICartDao{
 
 	@Autowired
 	private SessionFactory sessionFactory;
+	Logger logger = Logger.getLogger(CartDaoImpl.class);
 
 	public List<CartProductEntries> getCart(int cid) {
 		Session session = this.sessionFactory.getCurrentSession();
@@ -39,7 +42,7 @@ public class CartDaoImpl implements ICartDao{
 			return cpentries;
 
 		} catch (Exception e) {
-			System.out.println("Error getting the cart: " + e);
+			logger.error(e);
 			return null;
 		}
 	}
@@ -71,7 +74,7 @@ public class CartDaoImpl implements ICartDao{
 			} else
 				return false;
 		} catch (Exception e) {
-			System.out.println("Failed to decrement the quantity: " + e);
+            logger.error(e);
 			return false;
 		}
 	}
@@ -104,13 +107,13 @@ public class CartDaoImpl implements ICartDao{
 			} else
 				return false;
 		} catch (Exception e) {
-			System.out.println("Error Increasing the quantity " + e);
+			logger.error(e);
 			return false;
 		}
 
 	}
     
-	public void deleteCart(int cid) {
+	public boolean deleteCart(int cid) {
 		Session session = this.sessionFactory.getCurrentSession();
 		try {
 			Query custQuery = session.createQuery("from Customer where id=:id")
@@ -121,9 +124,11 @@ public class CartDaoImpl implements ICartDao{
 					.createQuery("from Cart where customer=:cust")
 					.setParameter("cust", customer).uniqueResult();
 			session.delete(cart);
+			return true;
 
 		} catch (Exception e) {
-			System.out.println("Error deleting the customer cart: " + e);
+			logger.error(e);
+			return false;
 		}
 	}
 	public boolean deleteFromCart(int pid, int cid) {
@@ -151,7 +156,7 @@ public class CartDaoImpl implements ICartDao{
 			return true;
 
 		} catch (Exception e) {
-			System.out.println("Error Deleting From the Cart: " + e);
+			logger.error(e);
 			return false;
 		}
 	}
@@ -197,7 +202,7 @@ public class CartDaoImpl implements ICartDao{
 			return true;
 
 		} catch (Exception e) {
-			System.out.println("Adding product to cart error: " + e);
+			logger.error(e);
 			return false;
 		}
 	}

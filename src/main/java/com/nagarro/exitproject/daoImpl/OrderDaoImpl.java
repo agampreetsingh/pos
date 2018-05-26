@@ -3,12 +3,14 @@ package com.nagarro.exitproject.daoImpl;
 import java.sql.Date;
 import java.util.List;
 
+import org.apache.log4j.Logger;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.nagarro.exitproject.constant.Constants;
 import com.nagarro.exitproject.dao.IOrderDao;
 import com.nagarro.exitproject.dto.OrderDetailDto;
 import com.nagarro.exitproject.model.Cart;
@@ -24,6 +26,7 @@ public class OrderDaoImpl implements IOrderDao{
 
 	@Autowired
 	private SessionFactory sessionFactory;
+	Logger logger = Logger.getLogger(OrderDaoImpl.class);
 
 	@SuppressWarnings("unchecked")
 	public boolean reloadOrder(int orderId) {
@@ -41,7 +44,6 @@ public class OrderDaoImpl implements IOrderDao{
 					           .setParameter("o", order)
 					           .list();
 			
-			// Create the cart of the customer.
 			Cart cart = new Cart();
 			cart.setCustomer(customer);
 			session.save(cart);
@@ -64,7 +66,7 @@ public class OrderDaoImpl implements IOrderDao{
 			return true;
 			
 		} catch (Exception e) {
-			System.out.println("Error reloading the order: " + e);
+            logger.error(e);
 			return false;
 		}
 	}
@@ -108,6 +110,24 @@ public class OrderDaoImpl implements IOrderDao{
 			return null;
 		}
 	}
+	
+	public List<Order> getOrders() {
+		System.out.println("Getting the orders");
+		Session session = this.sessionFactory.getCurrentSession();
+		try {
+			Query ordQuery = session
+					.createQuery("from Order");
+			@SuppressWarnings("unchecked")
+			List<Order> orders = ordQuery.list();
+			if (orders.size() == 0)
+				return null;
+			return orders;
+		} catch (Exception e) {
+			System.out.println("Error Getting the orders: " + e);
+			return null;
+		}
+
+	}
 
 	public List<Order> getOrders(int eid) {
 		System.out.println("Getting the orders");
@@ -119,7 +139,6 @@ public class OrderDaoImpl implements IOrderDao{
 			List<Order> orders = ordQuery.list();
 			if (orders.size() == 0)
 				return null;
-			System.out.println(orders.get(0).getDate());
 			return orders;
 		} catch (Exception e) {
 			System.out.println("Error Getting the orders: " + e);
@@ -187,7 +206,8 @@ public class OrderDaoImpl implements IOrderDao{
 					session.delete(savedOrder);
 					return false;
 				}
-				product.setStock(product.getStock() - quantity);
+				if(!status.equalsIgnoreCase(Constants.ORDER_STATUS_HOLD))
+				   product.setStock(product.getStock() - quantity);
 				int amountPerProduct = (int) ((int) quantity * product
 						.getPrice());
 				OrderProductEntries opentry = new OrderProductEntries();

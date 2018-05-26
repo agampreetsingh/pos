@@ -21,7 +21,7 @@
 	<context:component-scan base-package="com.nagarro.exitproject" />	
 	
 	
-	<mvc:interceptors>
+	 <mvc:interceptors>
 	   <bean class="com.nagarro.exitproject.interceptor.SessionInterceptor"></bean>
 	</mvc:interceptors> 
 

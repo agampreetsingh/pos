@@ -2,6 +2,7 @@ package com.nagarro.exitproject.daoImpl;
 
 import java.sql.Date;
 
+import org.apache.log4j.Logger;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -17,6 +18,7 @@ public class CashDrawerDaoImpl implements ICashDrawerDao{
 
 	@Autowired
 	private SessionFactory sessionFactory;
+	Logger logger = Logger.getLogger(CashDrawerDaoImpl.class);
 	
 	public CashDrawer getDrawer(int id, Date date) {
 		Session session = this.sessionFactory.getCurrentSession();
@@ -32,7 +34,7 @@ public class CashDrawerDaoImpl implements ICashDrawerDao{
 			cd = (CashDrawer)query.uniqueResult();
 			return cd;
 		} catch (Exception e) {
-			System.out.println("Error fetching the cash drawer: " + e);
+			logger.error(e);
 		}
 		return null;
 	}
@@ -53,7 +55,7 @@ public class CashDrawerDaoImpl implements ICashDrawerDao{
 			return true;
 			
 		} catch (Exception e) {
-			System.out.println("Error creating a new drawer: " + e);
+			logger.error(e);
 			return false;
 		}
 	}
@@ -71,7 +73,7 @@ public class CashDrawerDaoImpl implements ICashDrawerDao{
 			cd.setEndBalance(cd.getStartBalance()+endBalance);
 			return true;
 		} catch (Exception e) {
-			System.out.println("Error updating the cash: " +  e);
+			logger.error(e);
 			return false;
 		}
 	}

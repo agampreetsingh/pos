@@ -5,9 +5,11 @@ import java.util.List;
 
 
 
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -25,6 +27,7 @@ import com.nagarro.exitproject.service.ProductService;
 @RestController
 @RequestMapping(value=Constants.PRODUCT_URL)
 public class ProductController {
+	Logger logger = Logger.getLogger(ProductController.class);
 	
 	@Autowired
 	private ProductService productService;
@@ -34,8 +37,10 @@ public class ProductController {
 	public ResponseEntity<?> searchProductsBy(HttpServletRequest request, HttpServletResponse response, 
 			@RequestParam("key") String key) {
 		List<Product> list = this.productService.searchProductBy(key);
+		ProductListDto dto = new ProductListDto();
+		dto.setList(list);
 		if(list != null) {
-		   return ResponseEntity.status(HttpStatus.OK).body(list);
+		   return ResponseEntity.status(HttpStatus.OK).body(dto);
 		}
 		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
 	}

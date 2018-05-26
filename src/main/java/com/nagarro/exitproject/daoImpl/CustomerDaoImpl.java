@@ -2,6 +2,7 @@ package com.nagarro.exitproject.daoImpl;
 
 import java.util.List;
 
+import org.apache.log4j.Logger;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -16,6 +17,7 @@ public class CustomerDaoImpl implements ICustomerDao{
 
 	@Autowired
 	private SessionFactory sessionFactory;
+	Logger logger = Logger.getLogger(CustomerDaoImpl.class);
 	
 	public Customer getCustomerById(int custId) {
 		return (Customer) this.sessionFactory.getCurrentSession().get(Customer.class, custId);
@@ -31,9 +33,8 @@ public class CustomerDaoImpl implements ICustomerDao{
 					             .setParameter("key", "%" + searchKey + "%");
 			customers = query.list();
 		} catch (Exception e) {
-			System.out.println("Customer Fetching Error: " + e);
+           logger.error(e);
 		}		
-		System.out.println(customers.get(0).getName());
 		return customers;
 	}
 }

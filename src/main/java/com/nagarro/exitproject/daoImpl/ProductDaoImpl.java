@@ -2,6 +2,7 @@ package com.nagarro.exitproject.daoImpl;
 
 import java.util.List;
 
+import org.apache.log4j.Logger;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -16,17 +17,17 @@ public class ProductDaoImpl implements IProductDao{
 
 	@Autowired
 	private SessionFactory sessionFactory;
+	Logger logger = Logger.getLogger(ProductDaoImpl.class);
 	
 	@SuppressWarnings("unchecked")
 	public List<Product> getProducts() {
-		System.out.println("Got the product dao.");
 		Session session = this.sessionFactory.getCurrentSession();
 		List<Product> list = null;
 		try {
 			Query query = session.createQuery("from Product where stock > 0");
 			list = query.list();
 		} catch(Exception e) {
-			System.out.println("Product fetching error: " + e);
+          logger.error(e);
 		}
 		return list;
 	}
@@ -41,7 +42,7 @@ public class ProductDaoImpl implements IProductDao{
 			list = query.list();
 			return list;
 		} catch (Exception e) {
-			System.out.println("Error fetching products by search Key: " + e);
+            logger.error(e);
 			return null;
 		}
 	}

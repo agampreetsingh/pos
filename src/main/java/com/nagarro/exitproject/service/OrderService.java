@@ -30,6 +30,11 @@ public class OrderService {
 	}
 	
 	@Transactional
+	public List<Order> getOrders() {
+		return this.orderDao.getOrders();
+	}
+	
+	@Transactional
 	public List<Order> getOrder(int eid) {
 		return this.orderDao.getOrders(eid);
 	}
