@@ -83,7 +83,7 @@ public class OrderController {
 		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(Constants.ORDER_SAVE_FAILURE);
 	}
 	
-	@RequestMapping(value="/all", method=RequestMethod.GET)
+	@RequestMapping(value="/bydate", method=RequestMethod.GET)
 	@ResponseBody	
 	public ResponseEntity<?> getAllOrders(HttpServletRequest request, HttpServletResponse response) {
 		Employee emp = ((Employee)request.getSession().getAttribute(Constants.SESSION_USER));

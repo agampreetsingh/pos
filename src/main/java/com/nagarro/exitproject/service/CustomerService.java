@@ -20,5 +20,10 @@ public class CustomerService {
 	public List<Customer> getCustomers(String searchKey) {
 		return this.customerDao.getCustomers(searchKey);
 	}
+	
+	@Transactional
+	public Customer getCustomer(int id) {
+		return this.customerDao.getCustomerById(id);
+	}
 
 }

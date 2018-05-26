@@ -25,7 +25,6 @@ public class CustomerDaoImpl implements ICustomerDao{
 	
 	@SuppressWarnings("unchecked")
 	public List<Customer> getCustomers(String searchKey) {
-		System.out.println("Customer Dao.");
 		List<Customer> customers = null;
 		Session session = this.sessionFactory.getCurrentSession();
 		try {
@@ -37,4 +36,6 @@ public class CustomerDaoImpl implements ICustomerDao{
 		}		
 		return customers;
 	}
+
+	
 }

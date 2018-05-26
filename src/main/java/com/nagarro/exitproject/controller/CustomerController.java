@@ -6,6 +6,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -24,7 +25,14 @@ public class CustomerController {
 	@Autowired
 	private CustomerService customerService;
 	
-	@RequestMapping(value="", method=RequestMethod.GET)
+	@RequestMapping(value="{id}", method=RequestMethod.GET)
+	@ResponseBody	
+	public ResponseEntity<?> searchCustomerById(HttpServletRequest request, HttpServletResponse response, 
+			@PathVariable("id") String id) {
+		return ResponseEntity.ok().body(this.customerService.getCustomer(Integer.parseInt(id)));		
+	}
+	
+	@RequestMapping(value="searchby", method=RequestMethod.GET)
 	@ResponseBody	
 	public ResponseEntity<?> searchCustomer(HttpServletRequest request, HttpServletResponse response,
 			@RequestParam(value = "search", required = true) String searchKey) {
