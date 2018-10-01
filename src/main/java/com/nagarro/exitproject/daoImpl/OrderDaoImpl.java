@@ -116,7 +116,7 @@ public class OrderDaoImpl implements IOrderDao{
 		Session session = this.sessionFactory.getCurrentSession();
 		try {
 			Query ordQuery = session
-					.createQuery("from Order");
+					.createQuery("from Order order by date desc");
 			@SuppressWarnings("unchecked")
 			List<Order> orders = ordQuery.list();
 			if (orders.size() == 0)
@@ -134,7 +134,7 @@ public class OrderDaoImpl implements IOrderDao{
 		Session session = this.sessionFactory.getCurrentSession();
 		try {
 			Query ordQuery = session
-					.createQuery("from Order order by date DESC");
+					.createQuery("from Order group by date");
 			@SuppressWarnings("unchecked")
 			List<Order> orders = ordQuery.list();
 			if (orders.size() == 0)

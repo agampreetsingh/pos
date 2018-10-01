@@ -31,7 +31,7 @@ public class CartController {
 			@PathVariable("cid") String cid) {
 		ListDto dto = new ListDto();
 		dto.setList(this.cartService.getCart(cid));
-		return ResponseEntity.status(HttpStatus.OK).body(dto);
+		return ResponseEntity.status(HttpStatus.OK).body(this.cartService.getCart(cid));
 	}
 	
 	@RequestMapping(value="/customer/{cid}/addproduct/{pid}", method=RequestMethod.POST)

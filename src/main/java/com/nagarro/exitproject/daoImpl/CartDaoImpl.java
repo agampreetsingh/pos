@@ -101,7 +101,7 @@ public class CartDaoImpl implements ICartDao{
 
 			int quantity = cpentry.getQuantity();
 			int stock = product.getStock();
-			if (quantity + 1 < stock) { // Valid
+			if (quantity + 1 <= stock) { // Valid
 				cpentry.setQuantity(cpentry.getQuantity() + 1);
 				return true;
 			} else

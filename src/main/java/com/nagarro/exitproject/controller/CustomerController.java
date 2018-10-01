@@ -38,6 +38,6 @@ public class CustomerController {
 			@RequestParam(value = "search", required = true) String searchKey) {
 		ListDto cusList = new ListDto();
 		cusList.setList(this.customerService.getCustomers(searchKey));
-		return ResponseEntity.ok().body(cusList);
+		return ResponseEntity.ok().body(this.customerService.getCustomers(searchKey));
 	}
 }

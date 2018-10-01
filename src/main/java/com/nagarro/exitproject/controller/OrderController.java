@@ -21,7 +21,6 @@ import com.nagarro.exitproject.constant.Constants;
 import com.nagarro.exitproject.dto.ListDto;
 import com.nagarro.exitproject.dto.OrderDetailDto;
 import com.nagarro.exitproject.dto.PlaceOrderDto;
-import com.nagarro.exitproject.model.Employee;
 import com.nagarro.exitproject.model.Order;
 import com.nagarro.exitproject.service.OrderService;
 
@@ -32,6 +31,7 @@ public class OrderController {
 	
 	@Autowired
 	private OrderService orderService;
+	int eid = 1;
 	
 	@RequestMapping(value="{id}/reload", method=RequestMethod.POST)
 	@ResponseBody	
@@ -63,7 +63,7 @@ public class OrderController {
 		ListDto dto = new ListDto();
 		dto.setList(orders);
 		if(orders != null) {
-			return ResponseEntity.status(HttpStatus.OK).body(dto);
+			return ResponseEntity.status(HttpStatus.OK).body(orders);
 		}
 		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(Constants.ORDER_NOT_FOUND);
 	}
@@ -75,8 +75,9 @@ public class OrderController {
 			 @PathVariable("cid") String cid,
 			 @RequestBody PlaceOrderDto orderdto
 			) {
-		Employee emp = ((Employee)request.getSession().getAttribute(Constants.SESSION_USER));
-		int eid = emp.getId();
+//		Employee emp = ((Employee)request.getSession().getAttribute(Constants.SESSION_USER));
+//		int eid = emp.getId();
+	
 		if(this.orderService.saveOrder(orderdto.getPaymentType(), orderdto.getStatus(), cid, eid)){
 			return ResponseEntity.status(HttpStatus.OK).body(Constants.ORDER_SAVE_MESSAGE);
 		}
@@ -86,13 +87,13 @@ public class OrderController {
 	@RequestMapping(value="/bydate", method=RequestMethod.GET)
 	@ResponseBody	
 	public ResponseEntity<?> getAllOrders(HttpServletRequest request, HttpServletResponse response) {
-		Employee emp = ((Employee)request.getSession().getAttribute(Constants.SESSION_USER));
-		int eid = emp.getId();
+//		Employee emp = ((Employee)request.getSession().getAttribute(Constants.SESSION_USER));
+//		int eid = emp.getId();
 		List<Order> orderList = this.orderService.getOrder(eid);
 		ListDto dto = new ListDto();
 		dto.setList(orderList);
 		if(orderList != null) {
-			return ResponseEntity.status(HttpStatus.OK).body(dto);
+			return ResponseEntity.status(HttpStatus.OK).body(orderList);
 		}		
 		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(Constants.ORDER_FETCH_ERROR);
 	}

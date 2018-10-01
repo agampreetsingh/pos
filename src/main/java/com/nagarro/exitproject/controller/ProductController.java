@@ -40,7 +40,7 @@ public class ProductController {
 		ProductListDto dto = new ProductListDto();
 		dto.setList(list);
 		if(list != null) {
-		   return ResponseEntity.status(HttpStatus.OK).body(dto);
+		   return ResponseEntity.status(HttpStatus.OK).body(list);
 		}
 		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
 	}
@@ -50,7 +50,7 @@ public class ProductController {
 	public ResponseEntity<?> getProductsList(HttpServletRequest request, HttpServletResponse response) {
 		ProductListDto prodList = new ProductListDto();
 		prodList.setList(this.productService.getProducts());
-		return ResponseEntity.ok().body(prodList);
+		return ResponseEntity.ok().body(this.productService.getProducts());
 	}
 
 }
